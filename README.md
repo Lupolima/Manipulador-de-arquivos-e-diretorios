@@ -1,0 +1,1 @@
+# Manipulador-de-arquivos-e-diretorios
