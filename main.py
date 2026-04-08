@@ -19,5 +19,5 @@ print(leitura)
 organizador = OrganizadorArquivos(parametros.destino)
 organizador.organizar(leitura.arquivos)
 
-#Relatório gera o arquivo relatorio.txt resumo do que foi feito
+#Gera o arquivo relatorio.txt
 organizador.gerar_relatorio()

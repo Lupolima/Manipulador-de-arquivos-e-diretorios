@@ -28,10 +28,9 @@ class ArgumentosCLI:
         return parser
 
     def _get_origem(self) -> str:
-        """
-        Retorna a pasta de origem.
-        Se não foi informada via CLI, pergunta ao usuário (obrigatório).
-        """
+        #Retorna a pasta de origem.
+        #Se não foi informada via CLI, pergunta ao usuário (obrigatório).
+        
         origem = self._args.origem or self._args.origem_pos
 
         # Modo interativo: continua perguntando até o usuário informar algo
@@ -45,7 +44,7 @@ class ArgumentosCLI:
     def _get_destino(self) -> str:
         """
         Retorna a pasta de destino.
-        Se não foi informada, cria automaticamente 'saida/' ao lado da origem.
+        Se não informada, cria automaticamente 'saida/' ao lado da origem.
         """
         destino = self._args.destino or self._args.destino_pos
 
