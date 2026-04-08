@@ -19,18 +19,15 @@ class OrganizadorArquivos:
     def __init__(self, caminho_destino: str):
         self.destino = Path(caminho_destino)
 
-        # Contador separado por tipo: {'pdf': 2, 'txt': 1, ...}
+        # Contador ex pdf: 2 txt: 1
         self.contadores = defaultdict(int)
 
-        # Histórico de movimentações para o relatório: [(origem, destino), ...]
+        # Histórico de movimentações para o relatorio
         self.mapeamento = []
 
         # Erros ocorridos sem interromper o programa (Requisito 5)
         self.erros = []
 
-    # -------------------------------------------------------------------------
-    # ORGANIZAÇÃO
-    # -------------------------------------------------------------------------
 
     def organizar(self, arquivos: list[Path]) -> None:
         """
@@ -48,6 +45,7 @@ class OrganizadorArquivos:
         for arquivo in arquivos:
             self._processar_arquivo(arquivo)
 
+
     def _processar_arquivo(self, arquivo_path: Path) -> None:
         """
         Processa um único arquivo:
@@ -57,25 +55,25 @@ class OrganizadorArquivos:
           4. Copia para a subpasta correta
         """
         try:
-            # Requisito 5: verifica permissão antes de tentar copiar
+            #verifica permissao antes de copiar
             if not os.access(arquivo_path, os.R_OK):
                 self.erros.append(f'Sem permissão de leitura: {arquivo_path.name}')
                 return
 
-            # Requisito 2: classifica pela extensão
+            #organiza pela extensão
             ext = arquivo_path.suffix.lower().lstrip('.')
             tipo = ext if ext in self.EXTENSOES_CONHECIDAS else 'outros'
 
-            # Requisito 3: nome no padrão tipo_001.ext
+            #nome no padrão tipo_001.txt
             self.contadores[tipo] += 1
             novo_nome = f'{tipo}_{self.contadores[tipo]:03d}{arquivo_path.suffix.lower()}'
 
-            # Cria a subpasta e resolve conflito de nomes se necessário
+            #cria a subpasta e resolve conflito de nomes.
             pasta_destino = self.destino / tipo
             pasta_destino.mkdir(exist_ok=True)
             caminho_saida = self._resolver_conflito(pasta_destino / novo_nome)
 
-            # Copia preservando as datas do arquivo original
+            #faz a copia
             shutil.copy2(arquivo_path, caminho_saida)
 
             self.mapeamento.append((str(arquivo_path), str(caminho_saida)))
@@ -93,11 +91,10 @@ class OrganizadorArquivos:
             self.erros.append(f'Erro inesperado em {arquivo_path.name}: {e}')
             print(f'  [ERRO] Erro inesperado: {arquivo_path.name}')
 
+
     def _resolver_conflito(self, caminho: Path) -> Path:
-        """
-        Requisito 5: se o arquivo destino já existir,
-        adiciona sufixo _c01, _c02... até achar um nome disponível.
-        """
+        #se o arquivo destino já existir resolve o conflito de nomes
+        #adiciona sufixo _c01, _c02... ate achar um nome disponível
         if not caminho.exists():
             return caminho
 
@@ -108,13 +105,10 @@ class OrganizadorArquivos:
                 return novo
             contador += 1
 
-    # -------------------------------------------------------------------------
-    # RELATÓRIO
-    # -------------------------------------------------------------------------
 
     def gerar_relatorio(self) -> None:
         """
-        Requisito 4: gera o arquivo relatorio.txt dentro da pasta de saída,
+        metodo que gera o arquivo relatorio.txt dentro da pasta de saída,
         com total, resumo por tipo, mapeamento completo e erros.
         """
         caminho = self.destino / 'relatorio.txt'

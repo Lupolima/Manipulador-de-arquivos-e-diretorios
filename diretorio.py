@@ -2,10 +2,8 @@ from pathlib import Path
 
 
 class Diretorio:
-    """
-    Responsável por ler e listar os arquivos da pasta de entrada.
-    Percorre a pasta e todas as suas subpastas automaticamente.
-    """
+    #le e lista os arquivos da pasta de entrada.
+    #Percorre a pasta e todas as suas subpastas automaticamente.
 
     def __init__(self, caminho: str):
         self.caminho = Path(caminho)
@@ -14,7 +12,7 @@ class Diretorio:
     def _listar(self) -> list[Path]:
         """
         Percorre o diretório recursivamente e retorna a lista de arquivos.
-        Ignora diretórios — coleta somente arquivos (Requisito 1).
+        ignora diretórios e pega somente arquivos
         """
         if not self.caminho.exists():
             print(f'  [ERRO] Pasta não encontrada: {self.caminho}')
@@ -27,7 +25,7 @@ class Diretorio:
         return [item for item in self.caminho.rglob('*') if item.is_file()]
 
     def __str__(self) -> str:
-        """Exibe a lista de arquivos encontrados de forma numerada."""
+        #Exibir a lista de arquivos encontrados de forma numerada
         if not self.arquivos:
             return '  Nenhum arquivo encontrado na pasta de origem.\n'
 

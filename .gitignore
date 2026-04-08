@@ -1,0 +1,7 @@
+# Ignorar tudo
+*
+
+# Manter apenas os arquivos Python e README
+!*.py
+!README.md
+!.gitignore

@@ -4,30 +4,21 @@ from pathlib import Path
 
 class ArgumentosCLI:
     """
-    Responsável por obter os parâmetros de execução.
-    Tenta ler da linha de comando; se não encontrar, pergunta ao usuário.
+    Responsável pelos parâmetros de execução.
+    Tenta ler da linha de comando, se não encontrar pergunta ao usuário.
     """
 
     def __init__(self):
         self._parser = self._criar_parser()
         self._args = self._parser.parse_args()
 
-        # Atributos públicos usados pelo main.py
+        # Atributos usados pelo main.py
         self.origem = self._get_origem()
         self.destino = self._get_destino()
 
     def _criar_parser(self) -> argparse.ArgumentParser:
-        """Configura o parser com os argumentos aceitos."""
-        parser = argparse.ArgumentParser(
-            description='Organizador Automático de Arquivos',
-            epilog=(
-                'Exemplos:\n'
-                '  python main.py ./entrada ./saida\n'
-                '  python main.py --origem ./entrada --destino ./saida\n'
-                '  python main.py                  (modo interativo)\n'
-            ),
-            formatter_class=argparse.RawDescriptionHelpFormatter
-        )
+        #Configura o parser com os argumentos aceitos
+        parser = argparse.ArgumentParser()
         parser.add_argument('origem_pos', nargs='?', metavar='ORIGEM',
                             help='Pasta de entrada (posicional)')
         parser.add_argument('destino_pos', nargs='?', metavar='DESTINO',
