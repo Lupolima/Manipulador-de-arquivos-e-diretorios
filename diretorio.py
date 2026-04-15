@@ -10,10 +10,8 @@ class Diretorio:
         self.arquivos = self._listar()
 
     def _listar(self) -> list[Path]:
-        """
-        Percorre o diretório recursivamente e retorna a lista de arquivos.
-        ignora diretórios e pega somente arquivos
-        """
+        #Percorre o diretório recursivamente e retorna a lista de arquivos.
+        #ignora diretórios e pega somente arquivos
         if not self.caminho.exists():
             print(f'  [ERRO] Pasta não encontrada: {self.caminho}')
             return []

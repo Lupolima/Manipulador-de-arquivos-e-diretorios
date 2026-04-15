@@ -6,11 +6,9 @@ from datetime import datetime
 
 
 class OrganizadorArquivos:
-    """
-    Responsável por copiar, renomear e organizar os arquivos na pasta de saída.
-    Também gera o relatório final.
-    """
-
+    #Responsável por copiar, renomear e organizar os arquivos na pasta de saída.
+    #Também gera o relatório final.
+    
     EXTENSOES_CONHECIDAS = {
         'txt', 'csv', 'json', 'jpg', 'jpeg', 'pdf',
         'png', 'mp4', 'mp3', 'xlsx', 'docx'
@@ -48,11 +46,10 @@ class OrganizadorArquivos:
 
     def _processar_arquivo(self, arquivo_path: Path) -> None:
         """
-        Processa um único arquivo:
-          1. Verifica se está acessível
-          2. Define o tipo (extensão ou 'outros')
-          3. Gera o novo nome padronizado  ex: pdf_001.pdf  (Requisito 3)
-          4. Copia para a subpasta correta
+        Verifica se está acessível
+        Define o tipo (extensão ou 'outros')
+        Gera o novo nome ex: pdf_001.pdf
+        Copia para a subpasta correta
         """
         try:
             #verifica permissao antes de copiar
@@ -64,7 +61,7 @@ class OrganizadorArquivos:
             ext = arquivo_path.suffix.lower().lstrip('.')
             tipo = ext if ext in self.EXTENSOES_CONHECIDAS else 'outros'
 
-            #nome no padrão tipo_001.txt
+            #novo nome tipo_001.txt
             self.contadores[tipo] += 1
             novo_nome = f'{tipo}_{self.contadores[tipo]:03d}{arquivo_path.suffix.lower()}'
 

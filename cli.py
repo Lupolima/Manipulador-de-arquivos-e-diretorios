@@ -29,8 +29,7 @@ class ArgumentosCLI:
 
     def _get_origem(self) -> str:
         #Retorna a pasta de origem.
-        #Se não foi informada via CLI, pergunta ao usuário (obrigatório).
-        
+        #Se não foi informada via CLI, pergunta ao usuário
         origem = self._args.origem or self._args.origem_pos
 
         # Modo interativo: continua perguntando até o usuário informar algo
